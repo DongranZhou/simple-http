@@ -160,7 +160,7 @@ namespace SimpleHttp
                     ms.WriteByte((byte)b);
                 result = Encoding.UTF8.GetString(ms.ToArray());
             }
-            return result.TrimEnd('\r');
+            return result;
         }
 
         private static string readAsString(Stream stream)
