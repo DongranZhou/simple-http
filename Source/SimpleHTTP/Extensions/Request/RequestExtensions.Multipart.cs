@@ -122,7 +122,14 @@ namespace SimpleHttp
                     if (b == '\n') break;
                     continue;
                 }
-
+                
+                if (b == '\r')
+                {
+                    destination.Write(checkBuffer, 0, i);
+                    checkBuffer[0] = (byte)b;
+                    i = 1;
+                }
+                else
                 if (b == boundary[i]) //start filling the check buffer
                 {
                     checkBuffer[i] = (byte)b;
