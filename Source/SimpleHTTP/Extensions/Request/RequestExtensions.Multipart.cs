@@ -145,27 +145,28 @@ namespace SimpleHttp
 
         private static string readLine(Stream stream)
         {
-            var sb = new StringBuilder();
-
-            int b;
-            while ((b = stream.ReadByte()) != -1 && b != '\n')
-                sb.Append((char)b);
-
-            if (sb.Length > 0 && sb[sb.Length - 1] == '\r')
-                sb.Remove(sb.Length - 1, 1);
-
-            return sb.ToString();
+            string result = "";
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int b;
+                while ((b = stream.ReadByte()) != -1 && b != 10)
+                    ms.WriteByte((byte)b);
+                result = Encoding.UTF8.GetString(ms.ToArray());
+            }
+            return result.TrimEnd('\r');
         }
 
         private static string readAsString(Stream stream)
         {
-            var sb = new StringBuilder();
-
-            int b;
-            while ((b = stream.ReadByte()) != -1)
-                sb.Append((char)b);
-
-            return sb.ToString();
+            string result = "";
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int b;
+                while ((b = stream.ReadByte()) != -1)
+                    ms.WriteByte((byte)b);
+                result = Encoding.UTF8.GetString(ms.ToArray());
+            }
+            return result;
         }
     }
 

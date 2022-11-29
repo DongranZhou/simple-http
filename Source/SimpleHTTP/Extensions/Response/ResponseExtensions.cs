@@ -217,7 +217,7 @@ namespace SimpleHttp
                 throw new ArgumentNullException(nameof(mime));
 
 
-            var data = Encoding.ASCII.GetBytes(txt);
+            var data = Encoding.UTF8.GetBytes(txt);
 
             response.ContentLength64 = data.Length;
             response.ContentType = mime;
